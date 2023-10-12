@@ -91,7 +91,7 @@ function checkJob(jobName)
     ---@return jobGrades table: { [number, string]: { <name/label> string, <payment/salary> number } }
 
     local canHire, canFire, canDeposit, canWithdraw, myGrade, jobGrades = false, false, false, false, nil, nil
-    
+
     if Framework == 'QBCORE' then 
         if PlayerData then 
             if PlayerData.job then 
@@ -159,54 +159,61 @@ function checkJob(jobName)
         return canHire, canFire, canDeposit, canWithdraw, myGrade, jobGrades
     elseif Framework == 'ESX' then 
         if ESX.PlayerData then 
-            if ESX.PlayerData.job then 
-                if ESX.PlayerData.job.name == jobName then 
-                    if ESX.Jobs[ESX.PlayerData.job.name] then 
-                        if ESX.Jobs[ESX.PlayerData.job.name].grades then 
-                            if ESX.PlayerData.job.grade then --number
-                                jobGrades = ESX.Jobs[ESX.PlayerData.job.name].grades
-                                local grade = jobGrades[ESX.PlayerData.job.grade]
-                                if not grade then grade = jobGrades[tostring(ESX.PlayerData.job.grade)] end
-                                if grade then 
-                                    if Config.Jobs[jobName] then 
-                                        local next = next
+            if not ESX.PlayerData.firstName or not ESX.PlayerData.lastName then
+                lib.callback('MK_BossMenu:Server:GetEsxName', true, function(first, last)
+                    if first then ESX.PlayerData.firstName = first end 
+                    if last then ESX.PlayerData.lastName = last end
+                end, ESX.PlayerData.identifier)
+            else
+                if ESX.PlayerData.job then 
+                    if ESX.PlayerData.job.name == jobName then 
+                        if ESX.Jobs[ESX.PlayerData.job.name] then 
+                            if ESX.Jobs[ESX.PlayerData.job.name].grades then 
+                                if ESX.PlayerData.job.grade then --number
+                                    jobGrades = ESX.Jobs[ESX.PlayerData.job.name].grades
+                                    local grade = jobGrades[ESX.PlayerData.job.grade]
+                                    if not grade then grade = jobGrades[tostring(ESX.PlayerData.job.grade)] end
+                                    if grade then 
+                                        if Config.Jobs[jobName] then 
+                                            local next = next
 
-                                        if Config.Jobs[jobName].HireGrades ~= nil and next(Config.Jobs[jobName].HireGrades) ~= nil then 
-                                            for key, value in pairs(Config.Jobs[jobName].HireGrades) do 
-                                                if value == ESX.PlayerData.job.grade then 
-                                                    canHire = true
-                                                    myGrade = ESX.PlayerData.job.grade
-                                                    break
+                                            if Config.Jobs[jobName].HireGrades ~= nil and next(Config.Jobs[jobName].HireGrades) ~= nil then 
+                                                for key, value in pairs(Config.Jobs[jobName].HireGrades) do 
+                                                    if value == ESX.PlayerData.job.grade then 
+                                                        canHire = true
+                                                        myGrade = ESX.PlayerData.job.grade
+                                                        break
+                                                    end
                                                 end
                                             end
-                                        end
 
-                                        if Config.Jobs[jobName].FireGrades ~= nil and next(Config.Jobs[jobName].FireGrades) ~= nil then 
-                                            for key, value in pairs(Config.Jobs[jobName].FireGrades) do 
-                                                if value == ESX.PlayerData.job.grade then 
-                                                    canFire = true
-                                                    myGrade = ESX.PlayerData.job.grade
-                                                    break
+                                            if Config.Jobs[jobName].FireGrades ~= nil and next(Config.Jobs[jobName].FireGrades) ~= nil then 
+                                                for key, value in pairs(Config.Jobs[jobName].FireGrades) do 
+                                                    if value == ESX.PlayerData.job.grade then 
+                                                        canFire = true
+                                                        myGrade = ESX.PlayerData.job.grade
+                                                        break
+                                                    end
                                                 end
                                             end
-                                        end
 
-                                        if Config.Jobs[jobName].DepositGrades ~= nil and next(Config.Jobs[jobName].DepositGrades) ~= nil then 
-                                            for key, value in pairs(Config.Jobs[jobName].DepositGrades) do 
-                                                if value == ESX.PlayerData.job.grade then 
-                                                    canDeposit = true
-                                                    myGrade = ESX.PlayerData.job.grade
-                                                    break
+                                            if Config.Jobs[jobName].DepositGrades ~= nil and next(Config.Jobs[jobName].DepositGrades) ~= nil then 
+                                                for key, value in pairs(Config.Jobs[jobName].DepositGrades) do 
+                                                    if value == ESX.PlayerData.job.grade then 
+                                                        canDeposit = true
+                                                        myGrade = ESX.PlayerData.job.grade
+                                                        break
+                                                    end
                                                 end
                                             end
-                                        end
 
-                                        if Config.Jobs[jobName].WithdrawGrades ~= nil and next(Config.Jobs[jobName].WithdrawGrades) ~= nil then 
-                                            for key, value in pairs(Config.Jobs[jobName].WithdrawGrades) do 
-                                                if value == ESX.PlayerData.job.grade then 
-                                                    canWithdraw = true
-                                                    myGrade = ESX.PlayerData.job.grade
-                                                    break
+                                            if Config.Jobs[jobName].WithdrawGrades ~= nil and next(Config.Jobs[jobName].WithdrawGrades) ~= nil then 
+                                                for key, value in pairs(Config.Jobs[jobName].WithdrawGrades) do 
+                                                    if value == ESX.PlayerData.job.grade then 
+                                                        canWithdraw = true
+                                                        myGrade = ESX.PlayerData.job.grade
+                                                        break
+                                                    end
                                                 end
                                             end
                                         end

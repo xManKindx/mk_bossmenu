@@ -152,54 +152,61 @@ function checkGang(gangName)
         return canHire, canFire, canDeposit, canWithdraw, myGrade, gangGrades
     elseif Framework == 'ESX' then 
         if ESX.PlayerData then 
-            if ESX.PlayerData.gang then 
-                if ESX.PlayerData.gang.name == gangName then 
-                    if ESX.Gangs[ESX.PlayerData.gang.name] then 
-                        if ESX.Gangs[ESX.PlayerData.gang.name].grades then 
-                            if ESX.PlayerData.gang.grade then --number
-                                gangGrades = ESX.Gangs[ESX.PlayerData.gang.name].grades
-                                local grade = gangGrades[ESX.PlayerData.gang.grade]
-                                if not grade then grade = gangGrades[tostring(ESX.PlayerData.gang.grade)] end
-                                if grade then 
-                                    if Config.Gangs[gangName] then 
-                                        local next = next
+            if not ESX.PlayerData.firstName or not ESX.PlayerData.lastName then
+                lib.callback('MK_BossMenu:Server:GetEsxName', true, function(first, last)
+                    if first then ESX.PlayerData.firstName = first end 
+                    if last then ESX.PlayerData.lastName = last end
+                end, ESX.PlayerData.identifier)
+            else
+                if ESX.PlayerData.gang then 
+                    if ESX.PlayerData.gang.name == gangName then 
+                        if ESX.Gangs[ESX.PlayerData.gang.name] then 
+                            if ESX.Gangs[ESX.PlayerData.gang.name].grades then 
+                                if ESX.PlayerData.gang.grade then --number
+                                    gangGrades = ESX.Gangs[ESX.PlayerData.gang.name].grades
+                                    local grade = gangGrades[ESX.PlayerData.gang.grade]
+                                    if not grade then grade = gangGrades[tostring(ESX.PlayerData.gang.grade)] end
+                                    if grade then 
+                                        if Config.Gangs[gangName] then 
+                                            local next = next
 
-                                        if Config.Gangs[gangName].HireGrades ~= nil and next(Config.Gangs[gangName].HireGrades) ~= nil then 
-                                            for key, value in pairs(Config.Gangs[gangName].HireGrades) do 
-                                                if value == ESX.PlayerData.gang.grade then 
-                                                    canHire = true
-                                                    myGrade = ESX.PlayerData.gang.grade
-                                                    break
+                                            if Config.Gangs[gangName].HireGrades ~= nil and next(Config.Gangs[gangName].HireGrades) ~= nil then 
+                                                for key, value in pairs(Config.Gangs[gangName].HireGrades) do 
+                                                    if value == ESX.PlayerData.gang.grade then 
+                                                        canHire = true
+                                                        myGrade = ESX.PlayerData.gang.grade
+                                                        break
+                                                    end
                                                 end
                                             end
-                                        end
 
-                                        if Config.Gangs[gangName].FireGrades ~= nil and next(Config.Gangs[gangName].FireGrades) ~= nil then 
-                                            for key, value in pairs(Config.Gangs[gangName].FireGrades) do 
-                                                if value == ESX.PlayerData.gang.grade then 
-                                                    canFire = true
-                                                    myGrade = ESX.PlayerData.gang.grade
-                                                    break
+                                            if Config.Gangs[gangName].FireGrades ~= nil and next(Config.Gangs[gangName].FireGrades) ~= nil then 
+                                                for key, value in pairs(Config.Gangs[gangName].FireGrades) do 
+                                                    if value == ESX.PlayerData.gang.grade then 
+                                                        canFire = true
+                                                        myGrade = ESX.PlayerData.gang.grade
+                                                        break
+                                                    end
                                                 end
                                             end
-                                        end
 
-                                        if Config.Gangs[gangName].DepositGrades ~= nil and next(Config.Gangs[gangName].DepositGrades) ~= nil then 
-                                            for key, value in pairs(Config.Gangs[gangName].DepositGrades) do 
-                                                if value == ESX.PlayerData.gang.grade then 
-                                                    canDeposit = true
-                                                    myGrade = ESX.PlayerData.gang.grade
-                                                    break
+                                            if Config.Gangs[gangName].DepositGrades ~= nil and next(Config.Gangs[gangName].DepositGrades) ~= nil then 
+                                                for key, value in pairs(Config.Gangs[gangName].DepositGrades) do 
+                                                    if value == ESX.PlayerData.gang.grade then 
+                                                        canDeposit = true
+                                                        myGrade = ESX.PlayerData.gang.grade
+                                                        break
+                                                    end
                                                 end
                                             end
-                                        end
 
-                                        if Config.Gangs[gangName].WithdrawGrades ~= nil and next(Config.Gangs[gangName].WithdrawGrades) ~= nil then 
-                                            for key, value in pairs(Config.Gangs[gangName].WithdrawGrades) do 
-                                                if value == ESX.PlayerData.gang.grade then 
-                                                    canWithdraw = true
-                                                    myGrade = ESX.PlayerData.gang.grade
-                                                    break
+                                            if Config.Gangs[gangName].WithdrawGrades ~= nil and next(Config.Gangs[gangName].WithdrawGrades) ~= nil then 
+                                                for key, value in pairs(Config.Gangs[gangName].WithdrawGrades) do 
+                                                    if value == ESX.PlayerData.gang.grade then 
+                                                        canWithdraw = true
+                                                        myGrade = ESX.PlayerData.gang.grade
+                                                        break
+                                                    end
                                                 end
                                             end
                                         end

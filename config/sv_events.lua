@@ -292,3 +292,13 @@ RegisterNetEvent('MK_BossMenu:Server:SetGang', function(setType, gangName, playe
         end
     end
 end)
+
+lib.callback.register('MK_BossMenu:Server:GetEsxName', function(source, ident)
+    local src = source
+    local result = MySQL.query.await('SELECT firstname, lastname FROM users WHERE identifier = ?', {ident})
+    if result and result[1] then 
+        return result[1].firstname, result[1].lastname
+    else
+        return false, false
+    end
+end)
