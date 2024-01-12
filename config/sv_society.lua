@@ -21,10 +21,10 @@ function getBalance(name, checkType)
         elseif result[1].money then 
             return tonumber(result[1].money)
         else
-            return 0
+            return false
         end
     else
-        return 0
+        return false
     end
 end
 
@@ -36,6 +36,8 @@ exports('updateSocietyBalance', updateBalance)
 ---@return number or false
 function updateBalance(deposit, name, checkType, amount)
     local balance, newBalance = getBalance(name, checkType), 0
+    if not balance then MK_CORE.Notify(src, {Message = locale('no_society'), Type = 'error', Duration = 5000}) return false end 
+
     amount = tonumber(amount)
 
     if deposit then 
@@ -148,8 +150,11 @@ end)
 ---@return number or false
 lib.callback.register('MK_BossMenu:Server:UpdateSociety', function(source, updateType, name, checkType, amount)
     local src = source
+    local player, ident
 
     local balance, newBalance = getBalance(name, checkType), 0
+    if not balance then MK_CORE.Notify(src, {Message = locale('no_society'), Type = 'error', Duration = 5000}) return false end 
+    
     amount = tonumber(amount)
 
     if updateType == 'deposit' then 
@@ -168,18 +173,31 @@ lib.callback.register('MK_BossMenu:Server:UpdateSociety', function(source, updat
     local query, params
 
     if Framework == 'QBCORE' then 
+        player = QBCore.Functions.GetPlayer(src)
+        ident = player?.PlayerData?.citizenid
         query = "UPDATE management_funds SET amount = ? WHERE `job_name` = ? AND `type` = ?"
         params = {newBalance, name, (checkType == 'job' and 'boss' or 'gang')}
     elseif Framework == 'ESX' then 
+        player = ESX.GetPlayerFromId(src)
+        ident = player?.identifier
         query = "UPDATE addon_account_data SET money = ? WHERE account_name = ?"
         params = {newBalance, 'society_'..name}
     end
 
     local result = MySQL.update.await(query, params)
     if result then
+
+        if player then 
+            local logString = 'Player [**'..ident..'**] | ID: [**'..src..'**] '..(updateType == 'deposit' and 'Deposited' or 'Withdrew')..' $**'..Utils:FormatThousand(amount)..(updateType == 'deposit' and '** into' or '** from')..' society account **'..name..'**'
+            if updateType == 'deposit' and societyWebhook and societyWebhook ~= '' then Utils:DiscordLog(societyWebhook, 'Society Deposit', 5763719, logString) end 
+            if updateType == 'withdraw' and societyWebhook and societyWebhook ~= '' then Utils:DiscordLog(societyWebhook, 'Society Withdrawal', 15548997, logString) end 
+        end
+
         MK_CORE.Notify(src, {Message = (updateType == 'deposit' and locale('deposit_success', Utils:FormatThousand(amount)) or locale('withdraw_success', Utils:FormatThousand(amount))), Type = 'primary', Duration = 8000 })
         return newBalance
     else
         return false
     end
 end)
+
+societyWebhook = '' --discord webhook to track society deposits and withdrawls

@@ -48,4 +48,9 @@ Config.RadialMenu = {
 
 ------------------------------------------------------MENU--------------------------------------------------------------------
 Config.UseOxLibContextMenu = true --set true to use ox_lib menu / false to use the script provided menu
+Config.ContextIcons = {
+    Manage = 'fa-solid fa-user',
+    Hire = 'fa-brands fa-hire-a-helper',
+    Society = 'fa-solid fa-money-bill-transfer'
+}
 ------------------------------------------------------------------------------------------------------------------------------
