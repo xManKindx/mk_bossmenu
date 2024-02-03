@@ -7,10 +7,12 @@ Config.Jobs = { --Add/Remove jobs to fit your server
         Locations = { --Locations to access the boss menu. Add as many as you need
             {
                 Coords = vector3(448.17, -973.37, 30.69), --location to display the open boss menu text ui (shows within 5 meters of the coords)
+                Distance = 5, --Distance away from the coords to be able to access the boss menu
                 Label = 'MRPD - Captains Office', --This label is only used for your own reference (not displayed in the script)
             },
             {
                 Coords = vector3(-448.75, 6012.07, 31.72),
+                Distance = 5,
                 Label = 'Paleto PD - Front Desk'
             }
         }
@@ -23,6 +25,7 @@ Config.Jobs = { --Add/Remove jobs to fit your server
         Locations = {
             {
                 Coords = vector3(303.33, -601.25, 43.29),
+                Distance = 5,
                 Label = 'Pillbox - Front Desk',
             }
         }
@@ -35,6 +38,7 @@ Config.Jobs = { --Add/Remove jobs to fit your server
         Locations = {
             {
                 Coords = vector3(-264.75, -965.71, 31.22),
+                Distance = 5,
                 Label = 'City Hall',
             }
         }
@@ -47,6 +51,7 @@ Config.Jobs = { --Add/Remove jobs to fit your server
         Locations = {
             {
                 Coords = vector3(895.08, -180.3, 74.7),
+                Distance = 5,
                 Label = 'Downtown Cab - Entrance Door',
             }
         }
@@ -59,10 +64,12 @@ Config.Jobs = { --Add/Remove jobs to fit your server
         Locations = {
             {
                 Coords = vector3(-31.33, -1114.51, 26.42),
+                Distance = 5,
                 Label = 'PDM - Right Office',
             },
             {
                 Coords = vector3(-27.45, -1103.35, 26.42),
+                Distance = 5,
                 Label = 'PDM - Left Office'
             }
         }
@@ -75,6 +82,7 @@ Config.Jobs = { --Add/Remove jobs to fit your server
         Locations = {
             {
                 Coords = vector3(-345.44, -131.05, 39.01),
+                Distance = 5,
                 Label = 'Autocare Mechanic',
             }
         }

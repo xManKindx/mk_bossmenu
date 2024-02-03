@@ -244,7 +244,7 @@ RegisterNetEvent('MK_BossMenu:Server:SetGang', function(setType, gangName, playe
                 TriggerClientEvent('MK_BossMenu:Client:CloseBossMenu', src)
                 if targetPlayer then MK_CORE.Notify(targetPlayer.PlayerData.source, {Message = locale('player_joined_notify', newGang.label), Type = 'primary', 8000}) end
             elseif setType == 'Promote' then 
-                MK_CORE.Notify(src, {Message = locale('gang_promoted', fullName, newGang.grade.name)})
+                MK_CORE.Notify(src, {Message = locale('gang_promoted', fullName, newGang.grade.name), Type = 'primary', Duration = 8000})
                 if targetPlayer then MK_CORE.Notify(targetPlayer.PlayerData.source, {Message = locale('gang_promoted_notify', newGang.grade.name), Type = 'primary', Duration = 8000}) end
             elseif setType == 'Demote' then
                 MK_CORE.Notify(src, {Message = locale('gang_demoted', fullName, newGang.grade.name), Type = 'primary', duration = 5000})
@@ -283,7 +283,7 @@ RegisterNetEvent('MK_BossMenu:Server:SetGang', function(setType, gangName, playe
                 TriggerClientEvent('MK_BossMenu:Client:CloseBossMenu', src)
                 if targetPlayer then MK_CORE.Notify(targetPlayer.source, {Message = locale('player_joined_notify', ESX.Gangs[gangName].label), Type = 'primary', 8000}) end
             elseif setType == 'Promote' then 
-                MK_CORE.Notify(src, {Message = locale('gang_promoted', fullName, newGangLabel)})
+                MK_CORE.Notify(src, {Message = locale('gang_promoted', fullName, newGangLabel), Type = 'primary', Duration = 8000})
                 if targetPlayer then MK_CORE.Notify(targetPlayer.source, {Message = locale('gang_promoted_notify', newGangLabel), Type = 'primary', Duration = 8000}) end
             elseif setType == 'Demote' then
                 MK_CORE.Notify(src, {Message = locale('gang_demoted', fullName, newGangLabel), Type = 'primary', duration = 5000})

@@ -7,6 +7,7 @@ Config.Gangs = { --Add/Remove gangs to fit your server.
         Locations = { --Locations to access the boss menu. Add as many as you need
             {
                 Coords = vector3(976.17, -101.39, 74.85), --location to display the open boss menu text ui (shows within 5 meters of the coords)
+                Distance = 5, --Distance away from the coords to be able to access the boss menu
                 Label = 'Clubhouse - Mirror Park' --This label is only used for your own reference (not displayed in the script)
             }
         }
@@ -19,6 +20,7 @@ Config.Gangs = { --Add/Remove gangs to fit your server.
         Locations = {
             {
                 Coords = vector3(102.87, -1959.07, 20.8),
+                Distance = 5,
                 Label = 'Grove Street'
             }
         }
@@ -31,6 +33,7 @@ Config.Gangs = { --Add/Remove gangs to fit your server.
         Locations = {
             {
                 Coords = vector3(333.77, -2023.34, 21.71),
+                Distance = 5,
                 Label = 'Southside Apartments'
             }
         }
@@ -43,6 +46,7 @@ Config.Gangs = { --Add/Remove gangs to fit your server.
         Locations = {
             {
                 Coords = vector3(1392.63, 1141.61, 114.44),
+                Distance = 5,
                 Label = 'Mansion Front Door'
             }
         }
@@ -55,6 +59,7 @@ Config.Gangs = { --Add/Remove gangs to fit your server.
         Locations = {
             {
                 Coords = vector3(-803.29, 171.98, 72.84),
+                Distance = 5,
                 Label = 'Michaels House - Living Room'
             }
         }
@@ -67,6 +72,7 @@ Config.Gangs = { --Add/Remove gangs to fit your server.
         Locations = {
             {
                 Coords = vector3(-764.03, -919.0, 20.2),
+                Distance = 5,
                 Label = 'Little Seoul'
             }
         }
